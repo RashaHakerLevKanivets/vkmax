@@ -12,14 +12,12 @@ class VKMaxCore:
         self.socket_timeout = 3
         
     def create_socket(self):
-        """Создает и настраивает сокет"""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.settimeout(self.socket_timeout)
         return sock
     
     def start_server(self, host=''):
-        """Запускает сервер для прослушивания сообщений"""
         server_socket = self.create_socket()
         server_socket.bind((host, self.port))
         server_socket.listen(5)
@@ -39,7 +37,6 @@ class VKMaxCore:
             server_socket.close()
     
     def handle_connection(self, conn, addr):
-        """Обрабатывает входящее соединение"""
         try:
             data = conn.recv(4096).decode('utf-8', errors='ignore')
             if data:
@@ -51,7 +48,6 @@ class VKMaxCore:
             conn.close()
     
     def send_text(self, target_ip, text):
-        """Отправляет текстовое сообщение"""
         try:
             sock = self.create_socket()
             sock.connect((target_ip, self.port))
@@ -129,7 +125,6 @@ class VKMaxCore:
         except:
             return False
 
-# Быстрые функции для импорта
 def quick_send(ip, message):
     core = VKMaxCore()
     return core.send_text(ip, message)
