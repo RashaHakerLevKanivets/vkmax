@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+# 
+
 import socket
 import os
 import time
@@ -22,7 +25,7 @@ class VKMaxCore:
         server_socket.bind((host, self.port))
         server_socket.listen(5)
         
-        print(f"VKMax Server слушает порт {self.port}")
+        print(f"VKMax Server listens to port {self.port}")
         
         try:
             while self.running:
@@ -32,7 +35,7 @@ class VKMaxCore:
                 except socket.timeout:
                     continue
         except KeyboardInterrupt:
-            print("\nСервер остановлен")
+            print("\nЫtop listening.")
         finally:
             server_socket.close()
     
@@ -55,19 +58,18 @@ class VKMaxCore:
             timestamp = datetime.now().strftime("%H:%M")
             message = f"[{timestamp}] {self.nickname}: {text}\n"
             sock.send(message.encode())
-            return True, "Сообщение отправлено"
+            return True, "Message sended"
             
         except ConnectionRefusedError:
-            return False, "Сервер недоступен"
+            return False, "Server error!"
         except Exception as e:
-            return False, f"Ошибка отправки: {e}"
+            return False, f"Send error: {e}"
         finally:
             sock.close()
     
     def send_file(self, target_ip, filepath):
-        """Отправляет файл"""
         if not os.path.isfile(filepath):
-            return False, "Файл не найден"
+            return False, "File not found"
         
         try:
             sock = self.create_socket()
@@ -75,7 +77,7 @@ class VKMaxCore:
             
             timestamp = datetime.now().strftime("%H:%M")
             filename = os.path.basename(filepath)
-            header = f"[{timestamp}] {self.nickname} отправляет файл: {filename}\n"
+            header = f"[{timestamp}] {self.nickname} sended file: {filename}\n"
             sock.send(header.encode())
             time.sleep(0.1)
             
@@ -83,12 +85,12 @@ class VKMaxCore:
                 while chunk := f.read(4096):
                     sock.send(chunk)
             
-            return True, "Файл отправлен"
+            return True, "File sended"
             
         except ConnectionRefusedError:
-            return False, "Сервер недоступен"
+            return False, "Server error"
         except Exception as e:
-            return False, f"Ошибка отправки файла: {e}"
+            return False, f"Send error: {e}"
         finally:
             sock.close()
     
@@ -134,5 +136,5 @@ def quick_server():
     core.start_server()
 
 if __name__ == "__main__":
-    print("VKMax Core - базовые сетевые функции")
-    print("Используйте как модуль: from vkmax_core import VKMaxCore")
+    print("VKMax Core - base soket functions")
+    print("Usage module: from vkmax_core import VKMaxCore")
