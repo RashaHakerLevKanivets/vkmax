@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# 
+# There are a lot of bugs somewhere around here
 
 import socket
 import os
@@ -35,7 +35,7 @@ class VKMaxCore:
                 except socket.timeout:
                     continue
         except KeyboardInterrupt:
-            print("\nЫtop listening.")
+            print("\nStop listening.")
         finally:
             server_socket.close()
     
