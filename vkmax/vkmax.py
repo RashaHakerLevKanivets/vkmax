@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -80,18 +81,18 @@ class VKMaxClient:
     def run(self):
         if len(sys.argv) < 2:
             print("Usage:")
-            print("  Listen: ./vkmax.py -l (tip - allow port for listening)")
-            print("  Connect: ./vkmax.py -c <IP_>")
-            print("  Fast sending: ./vkmax.py send <IP> <message>")
+            print("  Listen:       ./vkmax.py -l (tip - allow port for listening)")
+            print("  Connect:      ./vkmax.py -c <IP_>")
+            print("  Fast sending: ./vkmax.py -s <IP> <message>")
             return
         
         mode = sys.argv[1]
         
-        if mode == 'server':
+        if mode == '-l':
             self.core.start_server()
-        elif mode == 'client' and len(sys.argv) >= 3:
+        elif mode == '-c' and len(sys.argv) >= 3:
             self.start_chat(sys.argv[2])
-        elif mode == 'send' and len(sys.argv) >= 4:
+        elif mode == '-s' and len(sys.argv) >= 4:
             success, result = self.core.send_text(sys.argv[2], ' '.join(sys.argv[3:]))
             print(result)
         else:
