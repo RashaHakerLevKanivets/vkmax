@@ -21,17 +21,17 @@ VKMax is a lightweight console messenger for exchanging text messages and files 
 
 ### Run in server mode (listening for messages):
 ```bash
-./vkmax.py server
+./vkmax.py -l
 ```
 
 ### Connect to another user:
 ```bash
-./vkmax.py client <IP_address>
+./vkmax.py -c <IP_address>
 ```
 
 ### Quickly send a message:
 ```bash
-./vkmax.py send <IP_address> "Your message"
+./vkmax.py -s <IP_address> "Your message"
 ```
 
 ## Chat commands
@@ -94,4 +94,4 @@ To add new functions, edit the corresponding modules.
 
 ## License
 
-The project is distributed on an "as is" basis. You can modify it to suit your needs.
+The project is distributed on an MIT basis. You can modify it to suit your needs.
